@@ -1,71 +1,85 @@
-
-function calculerReductionIfElse() {
-    const montantStr = prompt("Veuillez entrer le montant de vos achats (en DH):");
+function validerMotDePasse() {
+    let continuer = true;
     
-    const montant = Number(montantStr);
+    while (continuer) {
+       
+        const motDePasse = prompt("Veuillez entrer votre mot de passe (tapez 'exit' pour quitter):");
+        
+        if (motDePasse === null || motDePasse.toLowerCase() === "exit") {
+            alert("Au revoir !");
+            continuer = false;
+            break;
+        }
+
+        const longueur = motDePasse.length;
+        
  
-    if (isNaN(montant) || montant < 0) {
-        console.log("Montant invalide. Veuillez entrer un nombre positif.");
-        return;
+        let force;
+        
+        if (longueur < 8) {
+            force = "faible";
+        } else if (longueur >= 8 && longueur <= 12) {
+            force = "moyen";
+        } else {
+            force = "fort";
+        }
+        
+      
+        alert(`Votre mot de passe (${'*'.repeat(longueur)}) a une force ${force}.`);
+        
+ 
+        console.log(`Mot de passe: ${'*'.repeat(longueur)}`);
+        console.log(`Longueur: ${longueur} caractères`);
+        console.log(`Force: ${force}`);
+        
+        if (force === "faible") {
+            console.log("Conseil: Utilisez au moins 8 caractères pour un mot de passe plus sécurisé.");
+        } else if (force === "moyen") {
+            console.log("Conseil: Essayez d'utiliser plus de 12 caractères pour une meilleure sécurité.");
+        } else {
+            console.log("Excellent! Votre mot de passe est fort.");
+        }
+        console.log("---");
     }
-
-    let reduction;
-    
-    if (montant < 200) {
-        reduction = montant * 0.05; 
-    } else if (montant >= 200 && montant <= 500) {
-        reduction = montant * 0.10; 
-    } else {
-        reduction = montant * 0.20; 
-    }
-    
-
-    const total = montant - reduction;
-    
-
-    console.log(`Pour un montant de ${montant}Dh, votre réduction est de ${reduction.toFixed(2)}Dh et le total est ${total.toFixed(2)}Dh.`);
 }
 
 
-function calculerReductionSwitch() {
-  
-    const montantStr = prompt("Veuillez entrer le montant de vos achats (en DH):");
+function validerMotDePasseAmeliore() {
+    let continuer = true;
+    
+    while (continuer) {
+ 
+        const motDePasse = prompt("Veuillez entrer votre mot de passe (tapez 'exit' pour quitter):");
+        
 
-    const montant = Number(montantStr);
-
-    if (isNaN(montant) || montant < 0) {
-        console.log("Montant invalide. Veuillez entrer un nombre positif.");
-        return;
-    }
-    
-    let tranche;
-    if (montant < 100) {
-        tranche = "faible";
-    } else if (montant >= 100 && montant <= 500) {
-        tranche = "moyen";
-    } else {
-        tranche = "eleve";
-    }
-    
-    let reduction;
-    
-    switch (tranche) {
-        case "faible":
-            reduction = montant * 0.05; // 5%
+        if (motDePasse === null || motDePasse.toLowerCase() === "exit") {
+            alert("Au revoir !");
+            continuer = false;
             break;
-        case "moyen":
-            reduction = montant * 0.10; // 10%
-            break;
-        case "eleve":
-            reduction = montant * 0.20; // 20%
-            break;
-        default:
-            reduction = 0;
+        }
+        
+        const longueur = motDePasse.length;
+        
+      
+        let force;
+        
+        if (longueur < 8) {
+            force = "faible";
+        } else if (longueur >= 8 && longueur <= 12) {
+            force = "moyen";
+        } else {
+            force = "fort";
+        }
+       
+        alert(`Votre mot de passe a une force ${force}.\n\n` +
+              `Longueur: ${longueur} caractères\n` +
+              `(Conseil: pour plus de sécurité, utilisez au moins 8 caractères avec des majuscules, minuscules, chiffres et caractères spéciaux)`);
+        
+        const reponse = prompt("Voulez-vous tester un autre mot de passe? (oui/non)");
+        
+        if (reponse === null || reponse.toLowerCase() !== "oui") {
+            alert("Merci d'avoir utilisé notre outil de validation de mot de passe!");
+            continuer = false;
+        }
     }
-    
-
-    const total = montant - reduction;
-    
-
-    console.log(`[Switch] Pour un montant de ${montant}Dh, votre réduction est de ${reduction.toFixed(2)}Dh et le total est ${total.toFixed(2)}Dh.`);
 }

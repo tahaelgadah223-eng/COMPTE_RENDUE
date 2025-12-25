@@ -1,15 +1,45 @@
+/* Style global */
 body {
     font-family: Arial, sans-serif;
-    margin: 20px;
+    margin: 30px;
+    background: #f4f4f9;
+    color: #333;
 }
 
-button {
-    padding: 6px 12px;
-    margin-right: 8px;
-    cursor: pointer;
+/* Titre principal */
+h1 {
+    margin-bottom: 15px;
 }
-input {
-    padding: 6px;
-    margin-right: 8px;
-    width: 200px;
+
+/* Boutons */
+button {
+    padding: 8px 14px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 4px;
+    background: #3949ab;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    background: #303f9f;
+}
+
+/* Texte d’aide */
+p {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+}
+/* Champ de saisie */
+input[type="password"] {
+    padding: 8px;
+    width: 250px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
 }
