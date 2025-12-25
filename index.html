@@ -2,14 +2,64 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Exercice 3 – Table de multiplication</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Exercice 4 - Tri des Notes</title>
 </head>
 <body>
-    <h1>Exercice 3 – Table de multiplication (résultats pairs)</h1>
-    <button onclick="tableMultiplicationPairs()">Afficher la table</button>
+    <h1>Exercice 4 - Tri des Notes</h1>
+    <button id="btn-tri">Lancer l'exercice</button>
+    
+    <script>
 
+        const notes = [10, 15, 8, 18, 12];
+        
 
-    <script src="point.js"></script>
+        function executerExercice() {
+            console.log("=== EXERCICE 4 - TRI DES NOTES ===");
+            console.log("Notes initiales :", notes);
+            console.log("");
+            
+
+            console.log("1. TRI PAR ORDRE CROISSANT :");
+            const notesCroissant = [...notes].sort((a, b) => a - b);
+            
+            for (let i = 0; i < notesCroissant.length; i++) {
+                const note = notesCroissant[i];
+                console.log(`Note ${i+1} : ${note}`);
+                
+
+                if (note < 10) {
+                    console.log(`NOTE INFÉRIEURE À 10 DÉTECTÉE (${note}) !`);
+                    console.log("ARRÊT IMMÉDIAT DU SCRIPT.");
+                    break;
+                }
+            }
+            
+            console.log("");
+            
+
+            console.log("2. TRI PAR ORDRE DÉCROISSANT :");
+            const notesDecroissant = [...notes].sort((a, b) => b - a);
+            
+            for (let i = 0; i < notesDecroissant.length; i++) {
+                const note = notesDecroissant[i];
+                console.log(`Note ${i+1} : ${note}`);
+                
+
+                if (note < 10) {
+                    console.log(` NOTE INFÉRIEURE À 10 DÉTECTÉE (${note}) !`);
+                    console.log("ARRÊT IMMÉDIAT DU SCRIPT.");
+                    break;
+                }
+            }
+            
+            console.log("");
+            console.log("=== FIN DE L'EXERCICE ===");
+        }
+        
+        document.getElementById('btn-tri').addEventListener('click', executerExercice);
+        
+
+        console.log("Page chargée. Cliquez sur le bouton 'Lancer l'exercice' pour commencer.");
+    </script>
 </body>
 </html>
