@@ -1,104 +1,87 @@
-// 1. Demander à l'utilisateur d'entrer 5 notes
-const notes = [];
+// 1. Création du tableau de produits
+let produits = [
+    { nom: "Ordinateur Portable", prix: 899.99, quantite: 15 },
+    { nom: "Souris sans Fil", prix: 29.99, quantite: 50 },
+    { nom: "Clavier Mécanique", prix: 89.99, quantite: 25 },
+    { nom: "Écran 24\"", prix: 249.99, quantite: 12 },
+    { nom: "Casque Audio", prix: 79.99, quantite: 30 }
+];
 
-for (let i = 0; i < 5; i++) {
-    const input = prompt(`Entrez la note ${i + 1} sur 5 :`);
-    const note = parseFloat(input);
+// 2. Fonction pour afficher les produits
+function afficheProduits() {
+    console.log("=== CATALOGUE DES PRODUITS ===");
     
-    // Validation de base de l'entrée
-    if (!isNaN(note)) {
-        notes.push(note);
-    } else {
-        alert("Veuillez entrer un nombre valide. Cette note sera ignorée.");
-        // Pour s'assurer qu'on a bien 5 notes, on décrémente i pour redemander cette note
-        i--;
+    for (let produit of produits) {
+        console.log(`Nom: ${produit.nom}`);
+        console.log(`Prix: ${produit.prix}€`);
+        console.log(`Quantité en stock: ${produit.quantite}`);
+        console.log("------------------------");
     }
 }
 
-console.log("Notes saisies :", notes);
-
-// 2. Fonction classique pour calculer la moyenne
-function calculerMoyenne(tableauNotes) {
-    let somme = 0;
-    let compteur = 0;
+// 3. Fonction pour vendre un produit
+function vendreProduit(nomProduit, quantiteVoulue) {
+    // Recherche du produit
+    let produitTrouve = null;
     
-    for (let i = 0; i < tableauNotes.length; i++) {
-        if (tableauNotes[i] >= 0) {
-            somme += tableauNotes[i];
-            compteur++;
-        } else {
-            console.log(`Erreur : La note ${tableauNotes[i]} est négative et sera ignorée.`);
+    for (let produit of produits) {
+        if (produit.nom.toLowerCase() === nomProduit.toLowerCase()) {
+            produitTrouve = produit;
+            break;
         }
     }
     
-    if (compteur === 0) {
-        console.log("Aucune note valide pour calculer la moyenne.");
-        return 0;
+    // Vérification si le produit existe
+    if (!produitTrouve) {
+        console.log(`Erreur: Le produit "${nomProduit}" n'existe pas dans le catalogue.`);
+        return false;
     }
     
-    return somme / compteur;
+    // Vérification du stock
+    if (produitTrouve.quantite < quantiteVoulue) {
+        console.log(`Erreur: Stock insuffisant pour "${produitTrouve.nom}".`);
+        console.log(`Stock disponible: ${produitTrouve.quantite}, Quantité demandée: ${quantiteVoulue}`);
+        return false;
+    }
+    
+    // Vente réussie - réduction du stock
+    produitTrouve.quantite -= quantiteVoulue;
+    const total = produitTrouve.prix * quantiteVoulue;
+    
+    console.log("Vente réussie!");
+    console.log(`Produit: ${produitTrouve.nom}`);
+    console.log(`Quantité vendue: ${quantiteVoulue}`);
+    console.log(`Prix unitaire: ${produitTrouve.prix}€`);
+    console.log(`Total: ${total}€`);
+    console.log(`Nouveau stock: ${produitTrouve.quantite}`);
+    
+    return true;
 }
 
-// 3. Transformation en fonction fléchée (lambda)
-const calculerMoyenneFlechee = (tableauNotes) => {
-    let somme = 0;
-    let compteur = 0;
+// Fonction supplémentaire pour tester facilement
+function testerCatalogue() {
+    console.log("=== TEST DU CATALOGUE ===");
     
-    for (let i = 0; i < tableauNotes.length; i++) {
-        if (tableauNotes[i] >= 0) {
-            somme += tableauNotes[i];
-            compteur++;
-        } else {
-            console.log(`Erreur : La note ${tableauNotes[i]} est négative et sera ignorée.`);
-        }
-    }
+    // Affichage initial
+    afficheProduits();
     
-    if (compteur === 0) {
-        console.log("Aucune note valide pour calculer la moyenne.");
-        return 0;
-    }
+    console.log("\n=== TESTS DE VENTE ===");
     
-    return somme / compteur;
-};
 
-// Version encore plus concise avec reduce (alternative)
-const calculerMoyenneLambda = (tableauNotes) => {
-    const notesValides = tableauNotes.filter(note => note >= 0);
+    console.log("\nTest 1: Vente de 3 souris sans fil");
+    vendreProduit("Souris sans Fil", 3);
+
+    console.log("\nTest 2: Tentative de vente de 20 écrans");
+    vendreProduit("Écran 24\"", 20);
     
-    if (notesValides.length === 0) {
-        console.log("Aucune note valide pour calculer la moyenne.");
-        return 0;
-    }
 
-    tableauNotes.forEach(note => {
-        if (note < 0) {
-            console.log(`Erreur : La note ${note} est négative et sera ignorée.`);
-        }
-    });
+    console.log("\nTest 3: Tentative de vente d'un produit inexistant");
+    vendreProduit("Tablette", 5);
     
-    const somme = notesValides.reduce((acc, note) => acc + note, 0);
-    return somme / notesValides.length;
-};
 
+    console.log("\nTest 4: Vente de 2 claviers mécaniques");
+    vendreProduit("Clavier Mécanique", 2);
 
-console.log("=== Calcul avec la fonction classique ===");
-const moyenneClassique = calculerMoyenne(notes);
-console.log(`Moyenne (fonction classique) : ${moyenneClassique.toFixed(2)}`);
-
-
-console.log("\n=== Calcul avec la fonction fléchée ===");
-const moyenneFlechee = calculerMoyenneFlechee(notes);
-console.log(`Moyenne (fonction fléchée) : ${moyenneFlechee.toFixed(2)}`);
-
-
-console.log("\n=== Calcul avec la lambda avec reduce ===");
-const moyenneLambda = calculerMoyenneLambda(notes);
-console.log(`Moyenne (lambda avec reduce) : ${moyenneLambda.toFixed(2)}`);
-
-
-
-alert(`Résultats :
-- Notes saisies : ${notes.join(", ")}
-- Moyenne (en ignorant les notes négatives) : ${moyenneLambda.toFixed(2)}
-- Note minimale : ${Math.min(...notes.filter(n => n >= 0)) || "N/A"}
-- Note maximale : ${Math.max(...notes.filter(n => n >= 0)) || "N/A"}`);
+    console.log("\n=== ÉTAT FINAL DU STOCK ===");
+    afficheProduits();
+}
