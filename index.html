@@ -1,52 +1,16 @@
 <!DOCTYPE html>
 <html lang="fr">
+    <link rel="stylesheet" href="style.css">
 <head>
-  <meta charset="UTF-8">
-  <title>Exercice 8 - JSON</title>
+    <meta charset="UTF-8">
+    <title>Exercice 2 – Validation de mot de passe</title>
 </head>
 <body>
-  <h1>Exercice 8 : JSON</h1>
+    <h1>Exercice 2 – Validation de mot de passe</h1>
+    <button onclick="validerMotDePasse()">Version simple</button>
+    <button onclick="validerMotDePasseAmeliore()">Version améliorée</button>
 
-  <button id="btnJson">Saisir mes informations</button>
+    <script src="point.js"></script>
 
-  <pre id="console"></pre>
-
-  <script>
-    const zoneConsole = document.getElementById("console");
-    const bouton = document.getElementById("btnJson");
-
-    function log(msg) {
-      zoneConsole.textContent += msg + "\n";
-    }
-
-    bouton.addEventListener("click", function () {
-
-      const nom = prompt("Entrez votre nom :");
-      const age = prompt("Entrez votre âge :");
-      const hobbies = prompt("Entrez vos hobbies (séparés par des virgules) :");
-
-      const utilisateur = {
-        nom: nom,
-        age: Number(age),
-        hobbies: hobbies.split(",").map(h => h.trim())
-      };
-
-      const jsonEnvoye = JSON.stringify(utilisateur);
-      log("JSON envoyé au serveur :");
-      log(jsonEnvoye);
-      log("--------------");
-
-
-      const jsonRecu = jsonEnvoye;
-
-
-      const utilisateurRecu = JSON.parse(jsonRecu);
-      log("Données reçues du serveur :");
-      log("Nom : " + utilisateurRecu.nom);
-      log("Âge : " + utilisateurRecu.age);
-      log("Hobbies : " + utilisateurRecu.hobbies.join(", "));
-      log("==============");
-    });
-  </script>
 </body>
 </html>
